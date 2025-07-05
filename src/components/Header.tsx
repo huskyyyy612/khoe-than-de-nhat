@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Heart, Menu, X, Phone } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigation = [
-    { name: "Trang chủ", href: "#home" },
-    { name: "Dịch vụ", href: "#services" },
-    { name: "Về chúng tôi", href: "#about" },
-    { name: "Liên hệ", href: "#contact" },
+    { name: "Trang chủ", href: "/" },
+    { name: "Đội ngũ bác sĩ", href: "/doctors" },
+    { name: "Tin tức", href: "/news" },
+    { name: "Đặt lịch", href: "/appointment" },
+    { name: "Bảng giá", href: "/pricing" },
+    { name: "FAQ", href: "/faq" },
+    { name: "Tra cứu KQ", href: "/results" },
   ];
 
   return (
@@ -27,15 +31,15 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-6">
             {navigation.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
-                className="text-foreground hover:text-primary transition-colors duration-200 font-medium"
+                to={item.href}
+                className="text-foreground hover:text-primary transition-colors duration-200 font-medium text-sm"
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -45,9 +49,11 @@ const Header = () => {
               <Phone className="h-4 w-4" />
               <span className="text-sm font-medium">1900 1234</span>
             </div>
-            <Button variant="healthcare">
-              Đặt lịch khám
-            </Button>
+            <Link to="/appointment">
+              <Button variant="healthcare">
+                Đặt lịch khám
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -68,23 +74,25 @@ const Header = () => {
           <div className="md:hidden border-t border-border bg-background">
             <nav className="py-4 space-y-2">
               {navigation.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className="block px-4 py-2 text-foreground hover:text-primary hover:bg-muted rounded-md transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
               <div className="px-4 pt-4 border-t border-border mt-4">
                 <div className="flex items-center gap-2 text-muted-foreground mb-3">
                   <Phone className="h-4 w-4" />
                   <span className="text-sm font-medium">Hotline: 1900 1234</span>
                 </div>
-                <Button variant="healthcare" className="w-full">
-                  Đặt lịch khám
-                </Button>
+                <Link to="/appointment" onClick={() => setIsMenuOpen(false)}>
+                  <Button variant="healthcare" className="w-full">
+                    Đặt lịch khám
+                  </Button>
+                </Link>
               </div>
             </nav>
           </div>
